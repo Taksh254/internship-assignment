@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taksh Sehrawat: Product, Design and AI Systems intern assignment</title>
+<meta name="description" content="Intern assignment submission by Taksh Sehrawat: PawPoint animal-care discovery MVP, Kaarya AI course landing page, and an AI-powered carousel content system.">
+<meta property="og:title" content="Taksh Sehrawat: intern assignment submission">
+<meta property="og:description" content="Three working prototypes and an AI content system.">
+<meta property="og:image" content="/img/pawpoint.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FF8A4C'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='30' text-anchor='middle' fill='%231D2528'%3ETS%3C/text%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Bricolage Grotesque";src:url("/pawpoint/fonts/bricolage-grotesque-latin-700-normal.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Bricolage Grotesque";src:url("/pawpoint/fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:Figtree;src:url("/pawpoint/fonts/figtree-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Figtree;src:url("/pawpoint/fonts/figtree-latin-500-normal.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:Figtree;src:url("/pawpoint/fonts/figtree-latin-600-normal.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:Figtree;src:url("/pawpoint/fonts/figtree-latin-700-normal.woff2") format("woff2");font-weight:700;font-display:swap}
+:root{--bg:#FBFBF8;--surface:#FFFFFF;--ink:#1D2528;--muted:#566065;--line:#E6E5DF;--accent:#FF8A4C;--accent-hover:#FF7A35;--accent-soft:#FFE9DC;--accent-text:#B23F0E;
+  --mint:#DCF2E6;--butter:#FFF0C4;--sky:#DDEBFF;--good:#17784A;--shadow:0 1px 2px rgba(29,37,40,.05),0 10px 28px rgba(29,37,40,.08);--display:"Bricolage Grotesque",Figtree,system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+[id]{scroll-margin-top:24px}
+body{margin:0;font-family:Figtree,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.025em;line-height:1.1;margin:0;text-wrap:balance}
+p,li{text-wrap:pretty}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;text-decoration:none;z-index:10}
+.skip:focus{top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font-weight:700;text-decoration:none;white-space:nowrap;border:1.5px solid transparent;transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,border-color .2s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--accent);color:var(--ink)}.btn-primary:hover{background:var(--accent-hover)}
+.btn-ghost{background:var(--surface);border-color:var(--line)}.btn-ghost:hover{border-color:var(--ink)}
+.btn svg{width:18px;height:18px}
+
+header{padding:16px 24px 0}
+.bar{max-width:1180px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);min-height:64px;padding:0 10px 0 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.me{display:flex;align-items:center;gap:10px;font-weight:700}
+.me .ini{width:38px;height:38px;border-radius:12px;background:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:15px}
+.bar nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+.bar nav a{padding:9px 12px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px}
+.bar nav a:hover{background:var(--bg)}
+
+.hero{padding:72px 0 40px;background:radial-gradient(45% 50% at 85% 40%,var(--accent-soft),transparent 72%),radial-gradient(35% 45% at 0% 60%,var(--mint),transparent 72%)}
+.hero h1{font-size:clamp(38px,5.4vw,64px);font-weight:800;max-width:15em}
+.hero p{font-size:19px;color:var(--muted);max-width:36em;margin:18px 0 28px}
+.hero .ctas{display:flex;gap:10px;flex-wrap:wrap}
+.role{display:inline-block;font-weight:600;font-size:14px;color:var(--accent-text);background:var(--accent-soft);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+
+section{padding:56px 0}
+h2{font-size:clamp(28px,3.4vw,40px);font-weight:800;margin-bottom:10px}
+.sub{color:var(--muted);font-size:17px;margin:0 0 28px;max-width:40em}
+
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;display:grid;transition:box-shadow .25s,transform .25s cubic-bezier(.16,1,.3,1)}
+.proj:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.proj .shot{display:block;background:var(--bg);overflow:hidden}
+.proj .shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.proj .body{padding:28px;display:flex;flex-direction:column;gap:12px}
+.num{font-weight:700;font-size:14px;color:var(--accent-text)}
+.proj h3{font-size:28px;font-weight:800}
+.proj p{margin:0;color:var(--muted)}
+.try{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.try li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px}
+.try li svg{width:20px;height:20px;flex:none;margin-top:2px;color:var(--good)}
+.proj .acts{margin-top:auto;padding-top:8px;display:flex;gap:10px;flex-wrap:wrap}
+.proj.big{grid-template-columns:1.2fr 1fr}
+.proj.big .shot{min-height:100%;aspect-ratio:16/10}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr));gap:20px;margin-top:20px}
+.pair .shot{aspect-ratio:16/10;border-bottom:1px solid var(--line)}
+@media (max-width:860px){.proj.big{grid-template-columns:1fr}.proj.big .shot{border-bottom:1px solid var(--line)}}
+
+.approach{display:grid;gap:18px}
+.part{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px;display:grid;grid-template-columns:220px 1fr;gap:28px}
+.part h3{font-size:22px}
+.part .tag{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px}
+.part ul{margin:0;padding-left:20px;display:grid;gap:8px}
+.part li::marker{color:var(--accent)}
+@media (max-width:760px){.part{grid-template-columns:1fr;gap:12px;padding:22px}}
+.flow{margin-top:18px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg)}
+.flow img{width:100%;display:block}
+
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:720px}
+th,td{text-align:left;padding:13px 16px;vertical-align:top}
+th{font-size:13px;font-weight:700;color:var(--muted);background:var(--bg)}
+tr+tr td{border-top:1px solid var(--line)}
+td b{font-weight:700}
+
+.files{display:flex;gap:12px;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);font-size:14.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){.rise{animation:rise .7s cubic-bezier(.16,1,.3,1) both}.d1{animation-delay:.08s}.d2{animation-delay:.16s}@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+<a class="skip" href="#projects">Skip to the projects</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ok" viewBox="0 0 256 256"><path fill="currentColor" d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
+  <symbol id="arrow" viewBox="0 0 256 256"><path fill="currentColor" d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+  <symbol id="down" viewBox="0 0 256 256"><path fill="currentColor" d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></symbol>
+</svg>
+
+<header>
+  <div class="bar">
+    <span class="me"><span class="ini" aria-hidden="true">TS</span>Taksh Sehrawat</span>
+    <nav aria-label="Sections"><a href="#projects">Projects</a><a href="#approach">Approach</a><a href="#stack">Tools</a><a href="#files">Files</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="role rise">Product Development, Design &amp; AI Systems Intern: assignment</span>
+    <h1 class="rise d1">Three working prototypes and an AI content system.</h1>
+    <p class="rise d2">Every project runs live in your browser and works on mobile. All names, prices and listings are example data.</p>
+    <div class="ctas rise d2">
+      <a class="btn btn-primary" href="#projects">See the projects <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      <a class="btn btn-ghost" href="#approach">Read my approach</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="padding-top:24px">
+  <div class="wrap">
+    <h2>The projects</h2>
+    <p class="sub">Each one is clickable end to end. Here is what to try first.</p>
+
+    <article class="proj big">
+      <a class="shot" href="/pawpoint/" aria-label="Open PawPoint"><img src="/img/pawpoint.jpg" alt="PawPoint homepage: a search box with a pet picker, pet illustrations and an emergency banner" width="1200" height="750"></a>
+      <div class="body">
+        <span class="num">Part 1 · MVP design</span>
+        <h3>PawPoint: animal-care discovery</h3>
+        <p>Find vets, 24×7 hospitals, boarding, diagnostics, ambulances and rescue NGOs, with fees and timings upfront.</p>
+        <ul class="try">
+          <li><svg aria-hidden="true"><use href="#ok"/></svg>Pick a pet, then tap "Ate something bad" to see the emergency path</li>
+          <li><svg aria-hidden="true"><use href="#ok"/></svg>Filter by animal, open now, distance and fee, then book a time slot</li>
+          <li><svg aria-hidden="true"><use href="#ok"/></svg>Try List Your Business and Submit a Correction</li>
+        </ul>
+        <div class="acts"><a class="btn btn-primary" href="/pawpoint/">Open PawPoint <svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
+      </div>
+    </article>
+
+    <div class="pair">
+      <article class="proj">
+        <a class="shot" href="/course/" aria-label="Open the Kaarya AI landing page"><img src="/img/course.jpg" alt="Kaarya AI landing page: headline about learning AI by building, with a six-week build board" width="1200" height="750"></a>
+        <div class="body">
+          <span class="num">Part 2 · Landing page</span>
+          <h3>Kaarya AI: course landing page</h3>
+          <p>A landing page for practical AI cohorts, built around a lead-capture journey.</p>
+          <ul class="try">
+            <li><svg aria-hidden="true"><use href="#ok"/></svg>Register through the two-step form</li>
+            <li><svg aria-hidden="true"><use href="#ok"/></svg>Then open "Demo: view captured leads" in the footer</li>
+          </ul>
+          <div class="acts"><a class="btn btn-primary" href="/course/">Open the landing page <svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
+        </div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="/carousel/" aria-label="Open the carousel system"><img src="/img/carousel.jpg" alt="Carousel showcase page with the first slide of the sample carousel" width="1200" height="750"></a>
+        <div class="body">
+          <span class="num">Part 3 · AI workflow</span>
+          <h3>AI carousel system</h3>
+          <p>One raw idea in, an on-brand Instagram and LinkedIn carousel out, without a designer.</p>
+          <ul class="try">
+            <li><svg aria-hidden="true"><use href="#ok"/></svg>Swipe through the 9-slide sample</li>
+            <li><svg aria-hidden="true"><use href="#ok"/></svg>See the workflow, tools and the exact prompts</li>
+          </ul>
+          <div class="acts"><a class="btn btn-primary" href="/carousel/">Open the carousel system <svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap">
+    <h2>My approach</h2>
+    <p class="sub">The key decisions behind each part, in brief.</p>
+    <div class="approach">
+      <div class="part">
+        <div><h3>PawPoint</h3><span class="tag" style="background:var(--mint)">MVP + CTAs</span></div>
+        <ul>
+          <li><b>One job for the MVP:</b> find the right care for my animal, near me, right now. Accounts, payments and reviews come later.</li>
+          <li><b>Start from the pet and the problem</b>, not the clinic type. A "Who's the patient?" picker and shortcuts like "Vaccination due" or "Ate something bad" lead straight to the right care.</li>
+          <li><b>Emergency is always one tap away</b>, in the header, a banner and the phone's bottom bar. Red is used only for emergencies.</li>
+          <li><b>The main button changes by category:</b> you book a vet, call an ambulance and report a rescue.</li>
+          <li><b>Trust is built in:</b> phone-verified badges, a "checked 3 days ago" date on every listing, fees shown upfront, and Submit a Correction on every card to keep data fresh.</li>
+          <li><b>Supply side:</b> List Your Business is free and phone-verified within 48 hours, with a separate flow to claim an existing listing.</li>
+        </ul>
+      </div>
+      <div class="part">
+        <div><h3>Kaarya AI</h3><span class="tag" style="background:var(--sky)">Lead capture</span></div>
+        <ul>
+          <li><b>Value proposition:</b> learn AI by building real things, and leave with a portfolio of projects you can show a recruiter.</li>
+          <li><b>CTAs ordered by commitment:</b> Register (high), Talk to a counsellor (medium) and Get the free syllabus (low), so every visitor has a next step.</li>
+          <li><b>Two-step registration</b> with a partial lead saved after step 1, so the team can follow up with people who drop off.</li>
+          <li><b>Pay after a free orientation call</b>, which lowers the barrier to registering. Every lead is tagged with the CTA it came from.</li>
+          <li><b>In production:</b> forms post to an n8n webhook, which writes to Google Sheets or a CRM and sends WhatsApp and email confirmations.</li>
+        </ul>
+      </div>
+      <div class="part">
+        <div><h3>Carousel system</h3><span class="tag" style="background:var(--butter)">AI workflow</span></div>
+        <div>
+          <ul>
+            <li><b>The founder does two steps:</b> drop a raw idea, then review. n8n runs the rest.</li>
+            <li><b>Claude researches and writes</b> the slides as structured JSON with word limits per slide, so the text stays editable and one slide can be fixed without redoing the whole carousel.</li>
+            <li><b>Design comes from a brand template:</b> Canva Bulk Create for editable designs, or the HTML renderer I built for fully automatic PNGs and a LinkedIn PDF.</li>
+            <li><b>A feedback loop:</b> plain-English edits like "slide 4 is too long" go back to the AI, and weekly results feed the best hooks back into the prompt.</li>
+          </ul>
+          <a class="flow" href="/carousel/"><img src="/carousel/workflow.jpg" alt="Workflow diagram: 1 drop a raw idea, 2 research and structure, 3 write slide copy, 4 visual direction, 5 design and render, 6 founder review, 7 export and schedule, 8 learn from results"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <h2>Tools and tech stack</h2>
+    <p class="sub">Start with what the founder already has, and add paid automation only when volume justifies it.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Job</th><th>Recommended</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Prototypes (this site)</td><td><b>HTML, CSS and JavaScript</b>, hosted on Vercel</td><td>Real interactions like filters and multi-step forms, fast to turn into production</td></tr>
+        <tr><td>Production web build</td><td><b>Next.js + Postgres (Supabase)</b> on Vercel</td><td>Server-rendered listing pages rank in search for "vet near me"</td></tr>
+        <tr><td>Automation</td><td><b>n8n</b> (or Make)</td><td>Visual workflows that connect forms, AI, Sheets, Telegram, Drive and Canva</td></tr>
+        <tr><td>Leads and follow-up</td><td><b>Google Sheets or a CRM</b>, WhatsApp Business API, email</td><td>One place for every lead, with confirmations where students actually look</td></tr>
+        <tr><td>Research and writing</td><td><b>Claude API</b> with web search</td><td>Follows a brand-voice prompt and a strict JSON format, and cites sources</td></tr>
+        <tr><td>Carousel design</td><td><b>Canva Pro brand template</b> + Bulk Create, or the HTML renderer</td><td>Editable in a tool the founder knows, or fully automatic</td></tr>
+        <tr><td>Storage and scheduling</td><td><b>Google Drive + Buffer</b></td><td>One folder per post, scheduled to Instagram and LinkedIn</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="files" style="padding-top:16px">
+  <div class="wrap">
+    <h2>Files</h2>
+    <p class="sub">The sample carousel as a LinkedIn-ready PDF.</p>
+    <div class="files">
+      <a class="btn btn-ghost" href="/files/carousel-linkedin.pdf" download><svg aria-hidden="true"><use href="#down"/></svg>Carousel PDF (9 slides)</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span>Taksh Sehrawat</span><span>Built for the Product Development, Design &amp; AI Systems internship assignment</span></div>
+</footer>
+</body>
+</html>

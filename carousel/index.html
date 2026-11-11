@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI carousel system: workflow + sample carousel</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0C1530;--muted:#4F5873;--bg:#FAFAF7;--line:#E4E4DE;--blue:#2448E8;--lime:#D6F35A}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px}
+h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;letter-spacing:-.03em;line-height:1.1;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.wrap{padding:56px 20px 8px}
+.k{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:0 0 10px}
+h1{font-size:clamp(32px,4.5vw,52px)}
+.lede{color:var(--muted);font-size:18px;max-width:720px;margin:14px 0 0}
+section.wrap{padding:36px 20px}
+h2{font-size:30px;margin-bottom:8px}
+.sub{color:var(--muted);margin:0 0 22px;max-width:720px}
+.viewer{display:grid;grid-template-columns:minmax(0,460px) 1fr;gap:40px;align-items:start}
+.stage{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(12,21,48,.18);aspect-ratio:1080/1350;background:#ddd;touch-action:pan-y}
+.track{display:flex;height:100%;transition:transform .35s ease}
+.track img{width:100%;height:100%;flex:none;display:block}
+.nav{display:flex;align-items:center;gap:12px;margin-top:16px}
+.nav button{width:48px;height:48px;border-radius:12px;border:1.5px solid var(--ink);background:#fff;font-size:20px;cursor:pointer}
+.nav button:disabled{opacity:.3;cursor:default}
+.dots{display:flex;gap:6px;flex:1;justify-content:center}
+.dots button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:#CFCFC8;cursor:pointer}
+.dots button[aria-current="true"]{background:var(--ink);width:26px;border-radius:6px}
+.counter{font-weight:600;min-width:46px;text-align:right}
+.facts{display:grid;gap:12px}
+.fact{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.fact b{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.cap{white-space:pre-wrap;font-size:14.5px;color:var(--ink);max-height:180px;overflow:auto;margin:6px 0 10px}
+.copy{border:1.5px solid var(--ink);background:#fff;border-radius:10px;padding:8px 14px;font:600 14px Inter,sans-serif;cursor:pointer;min-height:40px}
+.tabs{display:flex;gap:6px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font:600 13px Inter,sans-serif;cursor:pointer;min-height:36px}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.diagram{width:100%;border-radius:18px;border:1px solid var(--line);display:block;background:#fff}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:15px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:#F3F3EE}
+tr:last-child td{border-bottom:0}
+.tw{overflow-x:auto}
+details{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+summary{cursor:pointer;padding:16px 18px;font-weight:600}
+details pre{margin:0;padding:0 18px 18px;white-space:pre-wrap;font:13.5px/1.55 ui-monospace,Menlo,monospace;color:#2a3352}
+.pill{display:inline-block;background:var(--lime);font-weight:600;font-size:13px;border-radius:999px;padding:2px 10px}
+footer.wrap{padding:40px 20px 60px;color:var(--muted);font-size:14px}
+@media (max-width:820px){.viewer{grid-template-columns:1fr}}
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="k"><a href="/" style="color:inherit">All projects</a> / Part 3: AI-powered content creation system</p>
+  <h1>One raw idea in, a ready-to-post carousel out</h1>
+  <p class="lede">The sample below was made with the workflow on this page. The founder's one-line idea went through the research and copy prompts, which produced structured slide data, and the renderer turned that into 9 on-brand slides plus Instagram and LinkedIn captions.</p>
+</header>
+
+<section class="wrap">
+  <h2>Sample carousel</h2>
+  <p class="sub"><b>Input idea:</b> <i>"students use chatgpt like google, type 4 words and get generic junk. want a post on how to prompt better. tie to our bootcamp."</i></p>
+  <div class="viewer">
+    <div>
+      <div class="stage" id="stage" aria-roledescription="carousel" aria-label="Sample carousel">
+        <div class="track" id="track"></div>
+      </div>
+      <div class="nav">
+        <button id="prev" aria-label="Previous slide">←</button>
+        <div class="dots" id="dots" role="group" aria-label="Choose slide"></div>
+        <span class="counter" id="counter" aria-live="polite"></span>
+        <button id="next" aria-label="Next slide">→</button>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>Format</b>9 slides · 1080×1350 (4:5, fits both Instagram and LinkedIn) · PNG set + LinkedIn PDF</div>
+      <div class="fact"><b>Structure</b>Hook → problem → 5 habits (3 shown as before/after prompts) → cheat-sheet recap → CTA tied to the course landing page</div>
+      <div class="fact"><b>Why it should perform</b>Saveable cheat sheet, before/after examples people can copy, one idea per slide, and a comment-to-get CTA that also captures leads.</div>
+      <div class="fact">
+        <b>Captions (generated in the same step)</b>
+        <div class="tabs" role="group" aria-label="Caption platform"><button aria-pressed="true" data-cap="instagram">Instagram</button><button aria-pressed="false" data-cap="linkedin">LinkedIn</button></div>
+        <div class="cap" id="cap"></div>
+        <button class="copy" id="copyCap">Copy caption</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>The workflow</h2>
+  <p class="sub">Orchestrated in n8n. The founder only does steps 1 and 6. Everything else runs on its own.</p>
+  <img class="diagram" src="workflow.jpg" alt="Workflow diagram. 1: Founder drops a raw idea via Telegram or Notion. 2: AI researches and structures it. 3: AI writes slide copy as JSON. 4: AI picks a layout per slide. 5: Design and render via Canva Bulk Create or an automatic renderer. 6: Founder reviews and tweaks. 7: Export and schedule via Drive and Buffer. 8: Weekly performance data feeds back into the prompts.">
+</section>
+
+<section class="wrap">
+  <h2>Recommended tools</h2>
+  <p class="sub">Start with tools the founder already pays for, and add paid automation only when volume justifies it.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Job</th><th>Recommended</th><th>Why</th><th>Alternative</th></tr></thead>
+    <tbody>
+      <tr><td>Orchestration</td><td><b>n8n</b></td><td>Visual workflows, can be self-hosted, and has nodes for Claude, Google Sheets, Telegram, Drive and Canva</td><td>Make</td></tr>
+      <tr><td>Idea capture</td><td><b>Telegram bot</b> or <b>Notion "Ideas" database</b></td><td>The founder can send an idea from their phone in seconds</td><td>Google Form, WhatsApp Business API</td></tr>
+      <tr><td>Research</td><td><b>Claude API with web search</b></td><td>Structured reasoning plus sources, so the post has no made-up stats</td><td>Perplexity API</td></tr>
+      <tr><td>Copy + visual direction</td><td><b>Claude API</b>, JSON output</td><td>Follows a brand-voice prompt and strict word limits, and returns data a template can use</td><td>ChatGPT / Gemini API</td></tr>
+      <tr><td>Design (editable)</td><td><b>Canva Pro brand template + Bulk Create</b></td><td>Fills a fixed brand template from a sheet, and the founder edits in a tool they already know</td><td>Figma + a sheet-sync plugin</td></tr>
+      <tr><td>Design (fully automatic)</td><td><b>HTML template renderer</b> (used for this sample)</td><td>No extra cost, pixel-perfect, version-controlled, and renders in seconds</td><td>Canva Autofill API (depends on plan), Placid</td></tr>
+      <tr><td>Cover images (optional)</td><td>An image model via API</td><td>Only for covers that need a visual. Text-first carousels don't.</td><td>Canva Magic Media</td></tr>
+      <tr><td>Review &amp; approval</td><td><b>Telegram / Slack</b> message with Approve / Regenerate</td><td>Review happens where the founder already is</td><td>Email</td></tr>
+      <tr><td>Storage + scheduling</td><td><b>Google Drive + Buffer</b></td><td>One folder per post, with scheduling for both Instagram and LinkedIn</td><td>Meta Business Suite + LinkedIn native</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="wrap">
+  <h2>The prompts</h2>
+  <p class="sub">The two AI calls that do the heavy lifting. Brand rules live in the prompts, so every carousel comes out on-voice.</p>
+  <details><summary>Step 2 · Research &amp; structure</summary><pre>SYSTEM: You are the content strategist for {brand}, an AI-skills education brand for Indian college
+students and early-career professionals. Turn a founder's rough idea into a carousel plan. Be specific
+and practical. Never invent statistics. If a point needs a fact, find it with web search and cite it, or leave it out.
+
+USER: Raw idea: """{idea}"""
+Return: 1) the one-sentence takeaway  2) who it's for + their pain  3) 3 hook options (≤10 words) and your pick
+4) 5-7 key points in teaching order, each with a concrete example  5) a CTA for: {current_campaign}  6) sources</pre></details>
+  <details><summary>Step 3 + 4 · Slide copy &amp; visual direction (JSON out)</summary><pre>SYSTEM: You write carousels for {brand}. Voice: direct, warm, practical. Short sentences. No hype words, no emoji.
+Rules: 7-10 slides; slide 1 = hook, second-last = recap, last = CTA. Headline ≤9 words, body ≤35 words.
+Wrap the one key word per headline in ==double equals== (becomes a highlighter).
+Pick a layout per slide: cover | text | compare (weak "instead of" vs strong "try") | list | cta.
+Also write an Instagram caption (5 hashtags) and a LinkedIn caption (ends with a question).
+Return ONLY JSON: {"slides":[{"layout","kicker","number","headline","body","bad","good","items","action"}],
+"caption":{"instagram","linkedin"}}
+
+USER: Carousel plan: {step_2_output}</pre></details>
+  <details><summary>Review loop · founder edits in plain English</summary><pre>USER: Here is the carousel JSON and the founder's feedback: "{feedback}".
+Return the full updated JSON. Change only what the feedback asks for.
+
+→ n8n re-renders only the changed slides. Text that overflows a slide is caught by the renderer
+  and sent back to this step with "shorten slide N".</pre></details>
+</section>
+
+<footer class="wrap">Kaarya AI is a working name used for the sample. Brand colours and fonts come from one brand-kit file, so changing the brand means changing one file.</footer>
+
+<script>
+const N = 9, track = document.getElementById("track"), dots = document.getElementById("dots");
+for (let i = 1; i <= N; i++) {
+  const img = document.createElement("img");
+  img.src = `slides/slide-${String(i).padStart(2,"0")}.jpg`; img.alt = `Slide ${i} of ${N}`; img.loading = i < 3 ? "eager" : "lazy";
+  track.appendChild(img);
+  const d = document.createElement("button"); d.setAttribute("aria-label", `Go to slide ${i}`); d.onclick = () => go(i - 1); dots.appendChild(d);
+}
+const ALT = ["Cover: You're prompting AI like it's Google. 5 habits that turn generic answers into work you can actually use.","Google rewards keywords. AI rewards context.","01 Give it a role and an audience, with a before and after prompt.","02 Paste the context in, with a before and after prompt.","03 Show one example of good.","04 Let it ask you questions first, with a before and after prompt.","05 Edit the draft, don't start over.","Cheat sheet: role and audience, context, one example, questions first, iterate.","Want to build real things with AI? Comment PROMPT for the free syllabus."];
+[...track.children].forEach((im,k)=>im.alt = `Slide ${k+1}: ${ALT[k]}`);
+let cur = 0;
+function go(i){ cur = Math.max(0, Math.min(N-1, i)); track.style.transform = `translateX(${-cur*100}%)`;
+  [...dots.children].forEach((d,k)=>d.setAttribute("aria-current", k===cur));
+  document.getElementById("counter").textContent = `${cur+1}/${N}`;
+  document.getElementById("prev").disabled = cur===0; document.getElementById("next").disabled = cur===N-1; }
+document.getElementById("prev").onclick = () => go(cur-1);
+document.getElementById("next").onclick = () => go(cur+1);
+document.getElementById("stage").addEventListener("keydown", e => { if (e.key==="ArrowLeft") go(cur-1); if (e.key==="ArrowRight") go(cur+1); });
+document.getElementById("stage").tabIndex = 0;
+let x0 = null; const st = document.getElementById("stage");
+st.addEventListener("pointerdown", e => x0 = e.clientX);
+st.addEventListener("pointerup", e => { if (x0===null) return; const dx = e.clientX - x0; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); x0 = null; });
+go(0);
+
+const CAPS = {"instagram": "Most people use ChatGPT like a search bar, then wonder why the answers feel generic.\n\nThese 5 habits fix that:\n1. Give it a role and an audience\n2. Paste the context in\n3. Show one example of good\n4. Let it ask you questions first\n5. Edit the draft, don't start over\n\nSave this for your next prompt. Comment PROMPT for our free bootcamp syllabus.\n\n#AIforStudents #PromptEngineering #ChatGPT #CareerTips #LearnAI", "linkedin": "Most people prompt AI the way they search Google: four keywords and hope.\n\nThe difference between a generic answer and a useful one is usually context, not the model.\n\nThe 5 habits I teach every cohort are in the carousel below. Which one do you already use?\n\n#AI #PromptEngineering #CareerGrowth"};
+let which = "instagram";
+function showCap(){ document.getElementById("cap").textContent = CAPS[which]; }
+document.querySelectorAll("[data-cap]").forEach(b => b.onclick = () => { which = b.dataset.cap;
+  document.querySelectorAll("[data-cap]").forEach(x=>x.setAttribute("aria-pressed", x===b)); showCap(); });
+document.getElementById("copyCap").onclick = async e => {
+  try { await navigator.clipboard.writeText(CAPS[which]); e.target.textContent = "Copied"; }
+  catch { e.target.textContent = "Select the text above to copy"; }
+  setTimeout(()=>e.target.textContent = "Copy caption", 1800);
+};
+showCap();
+</script>
+</body>
+</html>
