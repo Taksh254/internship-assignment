@@ -176,6 +176,13 @@ h2{font-size:clamp(30px,3.8vw,50px);line-height:1.08;letter-spacing:-.04em;margi
 .acc{display:grid;gap:14px}
 .acc details{background:var(--paper);border:var(--b);box-shadow:var(--sh-s);border-radius:20px;transition:box-shadow .2s}
 .acc details[open]{box-shadow:var(--sh)}
+/* Curriculum cards float: a slow bob with a slight tilt, staggered so they drift out of step */
+.acc details{--r:-.6deg;animation:float 5.5s ease-in-out infinite}
+.acc details:nth-child(even){--r:.5deg;animation-duration:6.2s}
+.acc details:nth-child(1){animation-delay:-.4s}.acc details:nth-child(2){animation-delay:-2.1s}.acc details:nth-child(3){animation-delay:-3.6s}
+.acc details:nth-child(4){animation-delay:-1.2s}.acc details:nth-child(5){animation-delay:-4.4s}.acc details:nth-child(6){animation-delay:-2.8s}
+.acc details:hover{animation-play-state:paused}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-7px) rotate(calc(var(--r) * -1))}}
 .acc summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:52px 1fr 40px;align-items:center;gap:14px;font-weight:700;font-size:17px;border-radius:20px}
 .acc summary::-webkit-details-marker{display:none}
 .acc summary .n{width:52px;height:52px;border-radius:50%;border:var(--b);display:grid;place-items:center;font-family:var(--disp);font-size:14px}
